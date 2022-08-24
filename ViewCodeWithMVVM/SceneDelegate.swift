@@ -1,10 +1,3 @@
-//
-//  SceneDelegate.swift
-//  ViewCodeWithMVVM
-//
-//  Created by Matheus Evangelista on 24/08/22.
-//
-
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
