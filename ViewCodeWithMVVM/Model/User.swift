@@ -15,4 +15,5 @@ struct User {
     var salary: String
     var imageUser: UIImage
     var isEnableHeart: Bool
+    var identifier:Int
 }

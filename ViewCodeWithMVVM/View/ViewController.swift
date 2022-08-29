@@ -1,6 +1,6 @@
 import UIKit
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ViewController: UIViewController {
 
     @IBOutlet weak var tableview: UITableView!
     
@@ -15,15 +15,19 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
        
     }
     
+}
+
+extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.viewModel.numberOfRows
     }
 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let celula = tableview.dequeueReusableCell(withIdentifier: "CustomTableViewCell") as? CustomTableViewCell
-        celula?.setupCell(user: self.viewModel.loudCurrentUser(indexPath: indexPath))
-        return celula ?? UITableViewCell()
+        let cell = tableview.dequeueReusableCell(withIdentifier: "CustomTableViewCell") as? CustomTableViewCell
+        cell?.setupCell(user: self.viewModel.loudCurrentUser(indexPath: indexPath))
+        cell?.delegate(delegate: self)
+        return cell ?? UITableViewCell()
     }
     
     
@@ -31,8 +35,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(self.viewModel.getName(indexPath: indexPath))
     }
-
     
 }
 
+extension ViewController: CustomTableViewCellDelegate{
+    func tappedHeartButton(_ user: User) {
+        self.viewModel.exchangeHearState(user)
+    }
+}
 

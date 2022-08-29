@@ -22,6 +22,11 @@ class CustomCellViewModel{
         self.data = data
     }
     
+    public var getUser:User{
+        return self.data
+        
+    }
+    
    public var getName:String {
        return DescriptionCustomCell.name.rawValue + self.data.name
     }
@@ -45,6 +50,10 @@ class CustomCellViewModel{
     public var getIsEnableHeart:Bool{
         return self.data.isEnableHeart
      }
+    
+    public func exchangeHearState(_ value:Bool){
+        self.data.isEnableHeart = value
+    }
     
     
 
