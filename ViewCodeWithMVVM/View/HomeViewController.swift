@@ -1,30 +1,31 @@
 import UIKit
 
-class ViewController: UIViewController {
+class HomeViewController: UIViewController {
 
-    @IBOutlet weak var tableview: UITableView!
+   let viewModel:ViewModel = ViewModel()
     
-    let viewModel:ViewModel = ViewModel()
+    var screen: HomeScreenView?
+    
+    override func loadView() {
+        self.screen = HomeScreenView()
+        self.screen?.setupTableViewProtocols(delegate: self, dataSource: self)
+        self.view = screen
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableview.delegate = self
-        self.tableview.dataSource = self
-        self.tableview.separatorStyle = .none
-        self.tableview.register(UINib(nibName: "CustomTableViewCell", bundle: nil), forCellReuseIdentifier: "CustomTableViewCell")
-       
     }
     
 }
 
-extension ViewController: UITableViewDelegate, UITableViewDataSource {
+extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.viewModel.numberOfRows
     }
 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableview.dequeueReusableCell(withIdentifier: "CustomTableViewCell") as? CustomTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CustomTableViewCell") as? CustomTableViewCell
         cell?.setupCell(user: self.viewModel.loudCurrentUser(indexPath: indexPath))
         cell?.delegate(delegate: self)
         return cell ?? UITableViewCell()
@@ -38,7 +39,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
 }
 
-extension ViewController: CustomTableViewCellDelegate{
+extension HomeViewController: CustomTableViewCellDelegate{
     func tappedHeartButton(_ user: User) {
         self.viewModel.exchangeHearState(user)
     }
