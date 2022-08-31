@@ -13,7 +13,7 @@ class HomeScreenView: UIView {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.separatorStyle = .none
-        tableView.register(UINib(nibName: "CustomTableViewCell", bundle: nil), forCellReuseIdentifier: "CustomTableViewCell")
+        tableView.register(CustomTableViewCell.self, forCellReuseIdentifier: "CustomTableViewCell")
         return tableView
     }()
 
@@ -40,9 +40,5 @@ class HomeScreenView: UIView {
             self.tableView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             self.tableView.topAnchor.constraint(equalTo: self.topAnchor),
         ])
-        
     }
-   
-    
-
 }

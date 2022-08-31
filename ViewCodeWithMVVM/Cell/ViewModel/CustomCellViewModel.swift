@@ -11,7 +11,7 @@ enum DescriptionCustomCell:String{
     case name = "Nome: "
     case profession = "Profissão: "
     case salary = "Salário: "
-    case age = "Age: "
+    case age = "Idade: "
 }
 
 class CustomCellViewModel{
@@ -32,15 +32,15 @@ class CustomCellViewModel{
     }
     
     public var getProfession:String {
-        return DescriptionCustomCell.name.rawValue + self.data.profession
+        return DescriptionCustomCell.profession.rawValue + self.data.profession
      }
     
     public var getSalary:String {
-        return DescriptionCustomCell.name.rawValue + self.data.salary
+        return DescriptionCustomCell.salary.rawValue + self.data.salary
      }
     
     public var getAge:String {
-        return DescriptionCustomCell.name.rawValue + String( self.data.age)
+        return DescriptionCustomCell.age.rawValue + String( self.data.age)
      }
     
     public var getUserImage:UIImage{
