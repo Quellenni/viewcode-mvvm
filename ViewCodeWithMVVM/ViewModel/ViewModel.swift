@@ -7,22 +7,33 @@
 
 import UIKit
 
+protocol ViewModelDelegate:AnyObject{
+    func sucessRequest()
+    func errorRequest()
+}
+
 class ViewModel{
     
-   private var listUser: [User] = []
+    private let service:Service = Service()
+    private var listUser: [User] = []
     
-    init(){
-        self.configArrayUser()
+    private weak var delegate:ViewModelDelegate?
+    
+    public func delegate(delegate:ViewModelDelegate?){
+        self.delegate = delegate
     }
     
-    private func configArrayUser() {
-        self.listUser.append(User(name: "Caio", age: 30, profession: "Developer IOS", salary: "20.000,00", imageUser: UIImage(systemName: "person.circle") ?? UIImage(), isEnableHeart: true, identifier: 0))
-        self.listUser.append(User(name: "Fabrício", age: 30, profession: "Developer IOS", salary: "20.000,00", imageUser: UIImage(systemName: "person.circle") ?? UIImage(), isEnableHeart: false, identifier: 1))
-        self.listUser.append(User(name: "Alencar", age: 30, profession: "Developer IOS", salary: "20.000,00", imageUser: UIImage(systemName: "person.circle") ?? UIImage(), isEnableHeart: false, identifier: 2))
-        self.listUser.append(User(name: "Jorge", age: 30, profession: "Developer IOS", salary: "20.000,00", imageUser: UIImage(systemName: "person.circle") ?? UIImage(), isEnableHeart: false, identifier: 3))
-        self.listUser.append(User(name: "Felipe", age: 30, profession: "Developer IOS", salary: "20.000,00", imageUser: UIImage(systemName: "person.circle") ?? UIImage(), isEnableHeart: false, identifier: 4))
-        self.listUser.append(User(name: "Robson", age: 30, profession: "Developer IOS", salary: "20.000,00", imageUser: UIImage(systemName: "person.circle") ?? UIImage(), isEnableHeart: false, identifier: 5))
-       }
+    public func fetchAllRequest(){
+        service.getUserFromJson(fromFiledNamed: "user") { sucess,  error in
+            if let _sucess = sucess{
+                self.listUser = _sucess.group
+                self.delegate?.sucessRequest()
+            }else{
+                self.delegate?.errorRequest()
+            }
+            
+        }
+    }
     
     public var numberOfRows: Int{
         return self.listUser.count
@@ -46,5 +57,5 @@ class ViewModel{
     }
     
     
-
+    
 }

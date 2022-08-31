@@ -1,19 +1,21 @@
 import UIKit
 
 class HomeViewController: UIViewController {
-
-   let viewModel:ViewModel = ViewModel()
+    
+    let viewModel:ViewModel = ViewModel()
     
     var screen: HomeScreenView?
     
     override func loadView() {
         self.screen = HomeScreenView()
-        self.screen?.setupTableViewProtocols(delegate: self, dataSource: self)
+        
         self.view = screen
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.viewModel.delegate(delegate: self)
+        self.viewModel.fetchAllRequest()
     }
     
 }
@@ -22,7 +24,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.viewModel.numberOfRows
     }
-
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CustomTableViewCell") as? CustomTableViewCell
@@ -48,4 +50,19 @@ extension HomeViewController: CustomTableViewCellDelegate{
         self.viewModel.exchangeHearState(user)
     }
 }
+
+extension HomeViewController:ViewModelDelegate{
+    func sucessRequest() {
+        self.screen?.setupTableViewProtocols(delegate: self, dataSource: self)
+    }
+    
+    func errorRequest() {
+        print("Error ao realizar a request")
+    }
+    
+    
+    
+    
+}
+
 

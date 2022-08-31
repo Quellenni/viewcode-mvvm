@@ -26,7 +26,7 @@ class CustomTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-       // self.selectionStyle = .none
+        self.selectionStyle = .none
         self.screen.heartButton.addTarget(self, action: #selector(self.tappedHeartButton), for: .touchUpInside)
         self.screen.translatesAutoresizingMaskIntoConstraints = false
         self.contentView.addSubview(self.screen)
@@ -66,7 +66,7 @@ class CustomTableViewCell: UITableViewCell {
         self.viewModel = CustomCellViewModel(data: user)
         
         
-        self.screen.userImageView.image = self.viewModel?.getUserImage
+        self.screen.userImageView.image = UIImage(systemName:self.viewModel?.getUserImage ?? "")
         self.screen.nameLabel.text = self.viewModel?.getName
         self.screen.professionLabel.text = self.viewModel?.getProfession
         self.screen.salaryLabel.text = self.viewModel?.getSalary
