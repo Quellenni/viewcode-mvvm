@@ -23,8 +23,20 @@ class ViewModel{
         self.delegate = delegate
     }
     
-    public func fetchAllRequest(){
+    public func fetchAllRequestMock(){
         service.getUserFromJson(fromFiledNamed: "user") { sucess,  error in
+            if let _sucess = sucess{
+                self.listUser = _sucess.group
+                self.delegate?.sucessRequest()
+            }else{
+                self.delegate?.errorRequest()
+            }
+            
+        }
+    }
+    
+    public func fetchAllRequest(){
+        service.getUser() { sucess,  error in
             if let _sucess = sucess{
                 self.listUser = _sucess.group
                 self.delegate?.sucessRequest()

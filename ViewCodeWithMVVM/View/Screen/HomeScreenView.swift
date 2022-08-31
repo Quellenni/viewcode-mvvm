@@ -30,6 +30,10 @@ class HomeScreenView: UIView {
     public func setupTableViewProtocols(delegate:UITableViewDelegate, dataSource:UITableViewDataSource){
         self.tableView.delegate = delegate
         self.tableView.dataSource = dataSource
+    }
+    
+    public func reloadTableView(){
+        self.tableView.reloadData()
         
     }
     

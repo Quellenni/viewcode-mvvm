@@ -54,6 +54,7 @@ extension HomeViewController: CustomTableViewCellDelegate{
 extension HomeViewController:ViewModelDelegate{
     func sucessRequest() {
         self.screen?.setupTableViewProtocols(delegate: self, dataSource: self)
+        self.screen?.reloadTableView()
     }
     
     func errorRequest() {
