@@ -4,10 +4,10 @@ class HomeViewController: UIViewController {
     
     let viewModel:ViewModel = ViewModel()
     
-    var screen: HomeScreenView?
+    var screen: HomeScreenView2?
     
     override func loadView() {
-        self.screen = HomeScreenView()
+        self.screen = HomeScreenView2()
         
         self.view = screen
     }
